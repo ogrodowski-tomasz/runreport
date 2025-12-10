@@ -1,20 +1,17 @@
-//
-//
-// runreportApp.swift
-// runreport
-//
-// Created by Tomasz Ogrodowski on 13/11/2025
-// Copyright © 2025 Tomasz Ogrodowski. All rights reserved.
-//
-        
-
 import SwiftUI
+import HealthKit
 
 @main
 struct runreportApp: App {
+    @State private var healthKitManager = HealthKitManager()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(healthKitManager)
+                .task {
+                    await healthKitManager.requestAuthorization()
+                }
         }
     }
+
 }
